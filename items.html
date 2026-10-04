@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Items - Campus ReUse</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* BROWSE PAGE */
+
+        .browse-page {
+            min-height: 100vh;
+            padding: 60px 30px;
+            background: linear-gradient(135deg,
+                    #eee8ff,
+                    #e8f8ff,
+                    #fff1f7);
+        }
+
+        .browse-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .browse-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .browse-title h1 {
+            font-size: 45px;
+            color: #292344;
+            margin: 0 0 12px 0;
+        }
+
+        .browse-title p {
+            color: #777487;
+            font-size: 17px;
+        }
+
+
+        /* CARDS CONTAINER */
+
+        .browse-cards {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+
+        /* CARD */
+
+        .browse-card {
+            width: 100%;
+            box-sizing: border-box;
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(80, 50, 150, 0.15);
+            border: 1px solid #eee9fa;
+        }
+
+        .browse-card:hover {
+            transform: translateY(-6px);
+            transition: 0.3s;
+            box-shadow: 0 18px 40px rgba(80, 50, 150, 0.22);
+        }
+
+
+        /* ICON */
+
+        .browse-icon {
+            width: 65px;
+            height: 65px;
+            background: #eee8ff;
+            border-radius: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+
+        /* ITEM NAME */
+
+        .browse-card h2 {
+            color: #292344;
+            font-size: 22px;
+            margin: 0 0 12px 0;
+        }
+
+
+        /* CATEGORY */
+
+        .browse-category {
+            display: inline-block;
+            background: #eee8ff;
+            color: #7045d6;
+
+            padding: 6px 13px;
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* DESCRIPTION */
+
+        .browse-description {
+            color: #777487;
+            line-height: 1.6;
+            margin: 10px 0 15px 0;
+        }
+
+
+        /* PRICE */
+
+        .browse-price {
+            color: #7045d6;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+
+        /* AVAILABILITY */
+
+        .browse-availability {
+            color: #44405c;
+            margin-bottom: 18px;
+        }
+
+
+        /* REQUEST */
+
+        .browse-request {
+            width: 100%;
+            padding: 14px;
+
+            border: none;
+            border-radius: 25px;
+
+            background: linear-gradient(135deg,
+                    #7045d6,
+                    #4479e8);
+
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .browse-request:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(80, 50, 150, 0.25);
+        }
+
+
+        /* NO ITEMS */
+
+        .no-items {
+            width: 100%;
+            box-sizing: border-box;
+
+            grid-column: 1 / -1;
+
+            background: white;
+            padding: 60px 30px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            box-shadow: 0 12px 35px rgba(80, 50, 150, 0.12);
+        }
+
+        .no-items h2 {
+            color: #292344;
+        }
+
+        .no-items p {
+            color: #777487;
+        }
+
+
+        /* TABLET */
+
+        @media (max-width: 900px) {
+
+            .browse-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .browse-page {
+                padding: 45px 15px;
+            }
+
+            .browse-title h1 {
+                font-size: 34px;
+            }
+
+            .browse-cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ♻️ Campus ReUse
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">Home</a>
+
+            <a href="/items">Browse</a>
+
+            <a href="/post">Post Item</a>
+
+            <a href="/#about">About</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- BROWSE PAGE -->
+
+    <section class="browse-page">
+
+        <div class="browse-wrapper">
+
+
+            <!-- TITLE -->
+
+            <div class="browse-title">
+
+                <h1>📚 Browse Items</h1>
+
+                <p>
+                    Find useful items shared by your campus community.
+                </p>
+
+            </div>
+
+
+            <!-- CARDS -->
+
+            <div class="browse-cards">
+
+                {% if items %}
+
+                {% for item in items %}
+
+                <div class="browse-card">
+
+                    <div class="browse-icon">
+                        📦
+                    </div>
+
+                    <h2>
+                        {{ item["item_name"] }}
+                    </h2>
+
+                    <span class="browse-category">
+                        {{ item["category"] }}
+                    </span>
+
+                    <p class="browse-description">
+                        {{ item["description"] }}
+                    </p>
+
+                    <div class="browse-price">
+                        ₹{{ item["price"] }} / day
+                    </div>
+
+                    <div class="browse-availability">
+
+                        <strong>
+                            Availability:
+                        </strong>
+
+                        {{ item["availability"] }}
+
+                    </div>
+
+                    <button class="browse-request"
+                        onclick="openRequestForm({{ item['id'] }}, '{{ item['item_name'] }}')">
+                        📩 Request Item
+                    </button>
+
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+
+                <div class="no-items">
+
+                    <h2>
+                        📦 No items posted yet
+                    </h2>
+
+                    <p>
+                        Be the first person to post an item!
+                    </p>
+
+                    <a href="/post">
+                        Post an Item
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+        <!-- REQUEST FORM -->
+
+        <div id="requestForm" class="request-form-box" style="display: none;">
+
+            <h2>📩 Request Item</h2>
+
+            <p id="requestItemName"></p>
+
+            <form id="requestFormElement" method="POST">
+
+                <label>Your Name</label>
+
+                <input type="text" name="requester_name" placeholder="Enter your name" required>
+
+                <label>Phone Number</label>
+
+                <input type="tel" name="requester_phone" placeholder="Enter phone number" pattern="[0-9]{10}"
+                    maxlength="10" required>
+
+                <label>Message</label>
+
+                <textarea name="message" rows="4"
+                    placeholder="Example: I would like to borrow this item for 2 days."></textarea>
+
+                <button type="submit">
+                    Send Request
+                </button>
+
+                <button type="button" onclick="closeRequestForm()">
+                    Cancel
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            ♻️ Campus ReUse — Share • Borrow • Reuse
+        </p>
+
+        <p>
+            Building a sustainable campus together 🌱
+        </p>
+
+    </footer>
+
+    <script>
+
+        function openRequestForm(itemId, itemName) {
+
+            document.getElementById("requestForm").style.display = "block";
+
+            document.getElementById("requestItemName").textContent =
+                "Requesting: " + itemName;
+
+            document.getElementById("requestFormElement").action =
+                "/request/" + itemId;
+
+            document.getElementById("requestForm").scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+
+        function closeRequestForm() {
+
+            document.getElementById("requestForm").style.display = "none";
+
+        }
+
+    </script>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus ReUse</title>
+
+    <style>
+        /* =========================================================
+   GLOBAL
+========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            background: #f7f4ff;
+        }
+
+        section {
+            scroll-margin-top: 75px;
+        }
+
+
+        /* =========================================================
+   NAVBAR
+========================================================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            box-shadow: 0 3px 18px rgba(40, 20, 90, 0.12);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #4323a8;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #29204d;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #7045d6;
+        }
+
+        .logout {
+            background: #6040cf;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 9px;
+        }
+
+
+        /* =========================================================
+   HOME
+========================================================= */
+
+        #home {
+            min-height: 88vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 70px 7%;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(55, 25, 130, 0.86),
+                    rgba(88, 45, 160, 0.60)),
+                url("https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=1800&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        #home::after {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            right: -150px;
+            bottom: -250px;
+
+            background: rgba(255, 255, 255, 0.16);
+
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 700px;
+
+            color: white;
+        }
+
+        .hero-logo {
+            font-size: 52px;
+            margin-bottom: 12px;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .hero-content h1 span {
+            color: #d9c7ff;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons a {
+            display: inline-block;
+
+            padding: 14px 25px;
+            margin-right: 10px;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .browse-btn {
+            background: #673de2;
+            color: white;
+
+            box-shadow: 0 8px 20px rgba(50, 20, 130, 0.35);
+        }
+
+        .post-btn {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .post-btn:hover {
+            background: white;
+            color: #5a36c7;
+        }
+
+
+        /* =========================================================
+   HOME FEATURES
+========================================================= */
+
+        .home-features {
+            background: white;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            padding: 35px 7%;
+
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature {
+            text-align: center;
+            padding: 10px 25px;
+
+            border-right: 1px solid #ddd;
+        }
+
+        .feature:last-child {
+            border-right: none;
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+
+            margin: auto auto 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e9dcff;
+
+            font-size: 25px;
+        }
+
+        .feature h3 {
+            color: #302070;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #777;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+   COMMON SECTION
+========================================================= */
+
+        .section {
+            padding: 80px 6%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            color: #4e2ab5;
+            font-size: 38px;
+            margin-bottom: 10px;
+
+            text-shadow:
+                0 2px 8px rgba(80, 40, 150, 0.15);
+        }
+
+        .section-heading p {
+            color: #4d4268;
+            font-weight: 500;
+        }
+
+
+        /* =========================================================
+   BROWSE
+   COLORFUL BACKGROUND
+========================================================= */
+
+        #browse {
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(rgba(235, 220, 255, 0.86),
+                    rgba(255, 225, 240, 0.89)),
+                url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+
+        /* Decorative circles */
+
+        #browse::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            left: -170px;
+            top: 300px;
+
+            background: rgba(190, 235, 255, 0.45);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+        }
+
+        #browse::after {
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            right: -180px;
+            bottom: 100px;
+
+            background: rgba(225, 195, 255, 0.45);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+   SEARCH
+========================================================= */
+
+        .search-box {
+            max-width: 760px;
+
+            margin: 0 auto 35px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 17px 25px;
+
+            border: 2px solid rgba(228, 222, 245, 0.9);
+
+            border-radius: 40px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            box-shadow:
+                0 8px 25px rgba(60, 30, 120, 0.13);
+        }
+
+        .search-box input:focus {
+            border-color: #7651d8;
+
+            box-shadow:
+                0 0 0 4px rgba(118, 81, 216, 0.12),
+                0 8px 25px rgba(60, 30, 120, 0.13);
+        }
+
+
+        /* =========================================================
+   CATEGORY GALLERY
+========================================================= */
+
+        .category-heading {
+            text-align: center;
+
+            margin-bottom: 22px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-heading h3 {
+            color: #3f249d;
+
+            font-size: 27px;
+
+            text-shadow:
+                0 2px 8px rgba(70, 40, 150, 0.12);
+        }
+
+        .category-gallery {
+            display: grid;
+
+            grid-template-columns: repeat(8, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 55px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            border: 1px solid rgba(255, 255, 255, 0.85);
+
+            box-shadow:
+                0 10px 28px rgba(70, 40, 140, 0.13);
+
+            transition: 0.25s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 15px 30px rgba(70, 40, 140, 0.20);
+        }
+
+        .category-card img {
+            width: 100%;
+
+            height: 125px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .category-card h4 {
+            text-align: center;
+
+            padding: 13px 5px;
+
+            color: #3f25a8;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+
+        /* =========================================================
+   ACTUAL ITEMS
+========================================================= */
+
+        .items-heading {
+            margin-bottom: 25px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .items-heading h3 {
+            color: #3f249d;
+
+            font-size: 27px;
+        }
+
+        .items-heading p {
+            color: #51476a;
+
+            margin-top: 7px;
+        }
+
+        .items-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 24px;
+
+            padding: 10px;
+
+            border-radius: 25px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 12px 30px rgba(60, 30, 120, 0.14);
+
+            transition: 0.25s;
+
+            backdrop-filter: blur(5px);
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 16px 35px rgba(60, 30, 120, 0.18);
+        }
+
+        .item-card>img {
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+        }
+
+        .item-content {
+            padding: 18px;
+        }
+
+        .category-label {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            background: #eee7ff;
+
+            color: #6038c8;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        .item-content h4 {
+            font-size: 19px;
+
+            color: #282044;
+
+            margin-top: 10px;
+        }
+
+        .details {
+            display: none;
+
+            margin-top: 15px;
+
+            color: #666;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        .details.show {
+            display: block;
+        }
+
+        .details-btn {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #6340d2;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .details-btn:hover {
+            background: #4d2baa;
+        }
+
+        .request-box {
+            display: none;
+
+            margin-top: 15px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #ddd;
+        }
+
+        .request-box.show {
+            display: block;
+        }
+
+        .request-box input,
+        .request-box textarea {
+            width: 100%;
+
+            padding: 10px;
+
+            margin-bottom: 9px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-family: Arial;
+        }
+
+        .request-box textarea {
+            height: 70px;
+        }
+
+        .request-box button {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2dbb63;
+
+            color: white;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+   POST ITEM
+========================================================= */
+
+        #post {
+            position: relative;
+
+            min-height: 900px;
+
+            padding: 75px 6%;
+
+            background:
+                linear-gradient(rgba(255, 230, 245, 0.78),
+                    rgba(235, 227, 255, 0.90)),
+                url("https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1800&q=90");
+
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        #post::before {
+            content: "🌿";
+
+            position: absolute;
+
+            left: 30px;
+            bottom: 60px;
+
+            font-size: 100px;
+
+            opacity: 0.25;
+        }
+
+        #post::after {
+            content: "📚";
+
+            position: absolute;
+
+            right: 40px;
+            bottom: 30px;
+
+            font-size: 90px;
+
+            opacity: 0.25;
+        }
+
+        .post-heading {
+            text-align: center;
+
+            margin-bottom: 35px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .post-heading h2 {
+            font-size: 42px;
+
+            color: #4424a7;
+        }
+
+        .post-heading p {
+            color: #666;
+
+            margin-top: 8px;
+        }
+
+
+        /* =========================================================
+   POST FORM CARD
+========================================================= */
+
+        .post-form-card {
+            position: relative;
+
+            z-index: 3;
+
+            max-width: 900px;
+
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            padding: 32px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 50px rgba(70, 35, 130, 0.16);
+
+            backdrop-filter: blur(8px);
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px 25px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #44376b;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #dcd5ee;
+
+            border-radius: 11px;
+
+            background: #fbfaff;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #754bdd;
+
+            box-shadow:
+                0 0 0 3px #eee7ff;
+        }
+
+        .form-group textarea {
+            height: 105px;
+
+            resize: vertical;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .post-submit {
+            width: 100%;
+
+            margin-top: 22px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(90deg,
+                    #5c31ca,
+                    #8655df);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(85, 45, 190, 0.25);
+        }
+
+        .post-submit:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================================
+   REQUESTS
+========================================================= */
+
+        #requests {
+            position: relative;
+
+            min-height: 850px;
+
+            padding: 75px 6%;
+
+            background:
+                linear-gradient(rgba(70, 40, 140, 0.67),
+                    rgba(65, 38, 125, 0.76)),
+                url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=90");
+
+            background-size: cover;
+
+            background-position: center;
+        }
+
+        .request-heading {
+            text-align: center;
+
+            color: white;
+
+            margin-bottom: 35px;
+        }
+
+        .request-heading h2 {
+            font-size: 42px;
+
+            margin-bottom: 8px;
+        }
+
+        .request-heading p {
+            font-size: 16px;
+        }
+
+
+        /* =========================================================
+   REQUEST CARDS
+========================================================= */
+
+        .requests-container {
+            max-width: 950px;
+
+            margin: auto;
+        }
+
+        .request-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            padding: 18px;
+
+            margin-bottom: 15px;
+
+            border-radius: 17px;
+
+            box-shadow:
+                0 10px 30px rgba(20, 10, 70, 0.18);
+        }
+
+        .request-image {
+            width: 95px;
+
+            height: 80px;
+
+            flex-shrink: 0;
+
+            object-fit: cover;
+
+            border-radius: 10px;
+        }
+
+        .request-info {
+            flex: 1;
+        }
+
+        .request-info h3 {
+            color: #28205a;
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .request-info p {
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+        }
+
+        .request-message {
+            color: #555 !important;
+        }
+
+        .request-actions {
+            min-width: 150px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            gap: 8px;
+        }
+
+        .status {
+            text-align: center;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #fff0c7;
+
+            color: #b47700;
+        }
+
+        .status-approved {
+            background: #d7f7df;
+
+            color: #15803d;
+        }
+
+        .status-rejected {
+            background: #ffdada;
+
+            color: #c53030;
+        }
+
+        .approve-btn,
+        .reject-btn,
+        .view-btn {
+            border: none;
+
+            padding: 9px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background: #3ac45f;
+
+            color: white;
+        }
+
+        .reject-btn {
+            background: #ef4444;
+
+            color: white;
+        }
+
+        .view-btn {
+            background: #e9edff;
+
+            color: #4b42a5;
+        }
+
+
+        /* =========================================================
+   EMPTY REQUESTS
+========================================================= */
+
+        .empty-requests {
+            max-width: 600px;
+
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            color: #777;
+        }
+
+
+        /* =========================================================
+   FOOTER
+========================================================= */
+
+        footer {
+            padding: 30px;
+
+            text-align: center;
+
+            color: white;
+
+            background: #2c1b60;
+        }
+
+        footer strong {
+            color: #d9c7ff;
+        }
+
+
+        /* =========================================================
+   MOBILE
+========================================================= */
+
+        @media(max-width: 900px) {
+
+            .category-gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .home-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature {
+                border-right: none;
+
+                margin-bottom: 20px;
+            }
+        }
+
+
+        @media(max-width: 650px) {
+
+            nav {
+                height: auto;
+
+                padding: 15px;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+            .nav-links {
+                gap: 12px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            #home {
+                min-height: 80vh;
+
+                padding: 50px 25px;
+            }
+
+            .hero-content h1 {
+                font-size: 43px;
+            }
+
+            .hero-content p {
+                font-size: 17px;
+            }
+
+            .category-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .request-card {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .request-image {
+                width: 100%;
+
+                height: 160px;
+            }
+
+            .request-actions {
+                width: 100%;
+            }
+
+            .home-features {
+                grid-template-columns: 1fr 1fr;
+
+                padding: 25px 15px;
+            }
+
+            .section-heading h2,
+            .post-heading h2,
+            .request-heading h2 {
+                font-size: 31px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+    <nav>
+
+        <div class="logo">
+            ♻️ Campus ReUse
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#browse">Browse</a>
+            </li>
+
+            <li>
+                <a href="#post">Post Item</a>
+            </li>
+
+            <li>
+                <a href="#requests">Requests</a>
+            </li>
+
+            <li>
+                <a href="/logout" class="logout">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- =====================================================
+     HOME
+===================================================== -->
+
+    <section id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-logo">
+                ♻️
+            </div>
+
+            <h1>
+                Give Items a
+                <span>Second Life</span>
+            </h1>
+
+            <p>
+                Share • Borrow • Reuse
+                <br>
+                Build a greener campus. Help your fellow students.
+                Reduce waste.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#browse" class="browse-btn">
+                    Browse Items →
+                </a>
+
+                <a href="#post" class="post-btn">
+                    Post an Item
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     HOME FEATURES
+===================================================== -->
+
+    <div class="home-features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🌱
+            </div>
+
+            <h3>
+                Reduce Waste
+            </h3>
+
+            <p>
+                Keep useful items in use.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                👥
+            </div>
+
+            <h3>
+                Help Friends
+            </h3>
+
+            <p>
+                Support your campus community.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <h3>
+                Save Money
+            </h3>
+
+            <p>
+                Get things you need for less.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🌍
+            </div>
+
+            <h3>
+                Greener Campus
+            </h3>
+
+            <p>
+                A cleaner, better place for everyone.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+     BROWSE
+===================================================== -->
+
+    <section id="browse" class="section">
+
+
+        <div class="section-heading">
+
+            <h2>
+                Browse Items
+            </h2>
+
+            <p>
+                Find books, calculators, electronics, hostel items and more.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input type="text" id="searchInput" placeholder="🔍 Search for items..." onkeyup="filterEverything()">
+
+        </div>
+
+
+        <!-- CATEGORIES -->
+
+        <div class="category-heading">
+
+            <h3>
+                Explore Categories
+            </h3>
+
+        </div>
+
+
+        <div class="category-gallery">
+
+
+            <!-- BOOKS -->
+
+            <div class="category-card" data-category="books" onclick="selectCategory('books')">
+
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=90"
+                    alt="Books">
+
+                <h4>
+                    📚 Books
+                </h4>
+
+            </div>
+
+
+            <!-- CALCULATOR -->
+
+            <div class="category-card" data-category="calculator" onclick="selectCategory('calculator')">
+
+                <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=900&q=90"
+                    alt="Calculator">
+
+                <h4>
+                    🧮 Calculator
+                </h4>
+
+            </div>
+
+
+            <!-- MATH TOOLS -->
+
+            <div class="category-card" data-category="math tools" onclick="selectCategory('math tools')">
+
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=900&q=90"
+                    alt="Math Tools">
+
+                <h4>
+                    📐 Math Tools
+                </h4>
+
+            </div>
+
+            <!-- ELECTRONICS -->
+
+            <div class="category-card" data-category="electronics" onclick="selectCategory('electronics')">
+
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=90"
+                    alt="Electronics">
+
+                <h4>
+                    💻 Electronics
+                </h4>
+
+            </div>
+
+
+            <!-- STATIONERY -->
+
+            <div class="category-card" data-category="stationery" onclick="selectCategory('stationery')">
+
+                <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90"
+                    alt="Stationery">
+
+                <h4>
+                    ✏️ Stationery
+                </h4>
+
+            </div>
+
+
+            <!-- LAB EQUIPMENT -->
+
+            <div class="category-card" data-category="lab equipment" onclick="selectCategory('lab equipment')">
+
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=90"
+                    alt="Lab Equipment">
+
+                <h4>
+                    🧪 Lab Equipment
+                </h4>
+
+            </div>
+
+
+            <!-- HOSTEL -->
+
+            <div class="category-card" data-category="hostel" onclick="selectCategory('hostel')">
+
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=90"
+                    alt="Hostel">
+
+                <h4>
+                    🛏️ Hostel
+                </h4>
+
+            </div>
+
+
+            <!-- OTHER -->
+
+            <div class="category-card" data-category="other" onclick="selectCategory('other')">
+
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=900&q=90"
+                    alt="Other">
+
+                <h4>
+                    📦 Other
+                </h4>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+         AVAILABLE ITEMS
+    ================================================= -->
+
+        <div class="items-heading">
+
+            <h3>
+                Available Items
+            </h3>
+
+            <p>
+                Items posted by students on campus
+            </p>
+
+        </div>
+
+
+        <div class="items-grid">
+
+
+            {% for item in items %}
+
+
+            <div class="item-card" data-name="{{ item['item_name']|lower }}"
+                data-category="{{ item['category']|lower }}" data-description="{{ item['description']|lower }}">
+
+
+                <!-- ITEM IMAGE -->
+
+                {% if item['category']|lower == 'books' %}
+
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=90"
+                    alt="Book">
+
+                {% elif item['category']|lower == 'calculator' %}
+
+                <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=900&q=90"
+                    alt="Calculator">
+
+                {% elif item['category']|lower == 'math tools' %}
+
+                <img src="https://images.unsplash.com/photo-1596495578061-6e0763eafc4a?auto=format&fit=crop&w=900&q=90"
+                    alt="Math Tools">
+
+                {% elif item['category']|lower == 'electronics' %}
+
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=90"
+                    alt="Electronics">
+
+                {% elif item['category']|lower == 'stationery' %}
+
+                <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90"
+                    alt="Stationery">
+
+                {% elif item['category']|lower == 'lab equipment' %}
+
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=90"
+                    alt="Lab Equipment">
+
+                {% elif item['category']|lower == 'hostel' %}
+
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=90"
+                    alt="Hostel">
+
+                {% else %}
+
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=900&q=90"
+                    alt="Other">
+
+                {% endif %}
+
+
+                <div class="item-content">
+
+
+                    <span class="category-label">
+                        {{ item['category'] }}
+                    </span>
+
+
+                    <h4>
+                        {{ item['item_name'] }}
+                    </h4>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="details">
+
+                        <p>
+                            <strong>👤 Owner:</strong>
+                            {{ item['owner_name'] }}
+                        </p>
+
+                        <p>
+                            <strong>📍 Location:</strong>
+                            {{ item['dorm'] }}
+                        </p>
+
+                        <p>
+                            <strong>📅 Availability:</strong>
+                            {{ item['availability'] }}
+                        </p>
+
+                        <p>
+                            <strong>💰 Price:</strong>
+                            ₹{{ item['price'] }}
+                        </p>
+
+                        <p>
+                            <strong>📝 Description:</strong>
+                            {{ item['description'] }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- VIEW DETAILS -->
+
+                    <button class="details-btn" onclick="showDetails(this)">
+                        View Details
+                    </button>
+
+
+                    <!-- REQUEST FORM -->
+
+                    <div class="request-box">
+
+                        <form method="POST" action="/request/{{ item['id'] }}">
+
+                            <input type="text" name="requester_name" placeholder="Your Name" required>
+
+                            <input type="text" name="requester_phone" placeholder="Your Contact" required>
+
+                            <textarea name="message" placeholder="Write a message..."></textarea>
+
+                            <button type="submit">
+                                📩 Send Request
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     POST ITEM
+===================================================== -->
+
+    <section id="post">
+
+
+        <div class="post-heading">
+
+            <h2>
+                Post an Item
+            </h2>
+
+            <p>
+                Give your unused items a new home on campus.
+            </p>
+
+        </div>
+
+
+        <div class="post-form-card">
+
+
+            <form method="POST" action="/post">
+
+
+                <div class="form-grid">
+
+
+                    <!-- ITEM NAME -->
+
+                    <div class="form-group">
+
+                        <label>
+                            📦 Item Name *
+                        </label>
+
+                        <input type="text" name="item_name" placeholder="e.g. Engineering Mathematics Book" required>
+
+                    </div>
+
+
+                    <!-- OWNER -->
+
+                    <div class="form-group">
+
+                        <label>
+                            👤 Owner Name *
+                        </label>
+
+                        <input type="text" name="owner_name" placeholder="Your name" required>
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="form-group">
+
+                        <label>
+                            🏷️ Category *
+                        </label>
+
+                        <select name="category" required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Books">
+                                Books
+                            </option>
+
+                            <option value="Calculator">
+                                Calculator
+                            </option>
+
+                            <option value="Math Tools">
+                                Math Tools
+                            </option>
+
+                            <option value="Electronics">
+                                Electronics
+                            </option>
+
+                            <option value="Stationery">
+                                Stationery
+                            </option>
+
+                            <option value="Lab Equipment">
+                                Lab Equipment
+                            </option>
+
+                            <option value="Hostel">
+                                Hostel
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            📞 Phone *
+                        </label>
+
+                        <input type="text" name="phone" placeholder="Your contact number" required>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group full-width">
+
+                        <label>
+                            📝 Description *
+                        </label>
+
+                        <textarea name="description" placeholder="Tell students about the item, condition, etc."
+                            required></textarea>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            💰 Price (₹) *
+                        </label>
+
+                        <input type="number" name="price" placeholder="e.g. 200" required>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label>
+                            📍 Location *
+                        </label>
+
+                        <input type="text" name="dorm" placeholder="e.g. Boys Hostel" required>
+
+                    </div>
+
+
+                    <!-- AVAILABILITY -->
+
+                    <div class="form-group">
+
+                        <label>
+                            📅 Availability *
+                        </label>
+
+                        <select name="availability" required>
+
+                            <option value="">
+                                Select Availability
+                            </option>
+
+                            <option value="Available Now">
+                                Available Now
+                            </option>
+
+                            <option value="Available This Week">
+                                Available This Week
+                            </option>
+
+                            <option value="Available Later">
+                                Available Later
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <button type="submit" class="post-submit">
+                    ♻️ Post Item
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     REQUESTS
+===================================================== -->
+
+    <section id="requests">
+
+
+        <div class="request-heading">
+
+            <h2>
+                Requests
+            </h2>
+
+            <p>
+                Manage requests from other students.
+            </p>
+
+        </div>
+
+
+        <div class="requests-container">
+
+
+            {% if requests %}
+
+
+            {% for req in requests %}
+
+
+            <div class="request-card">
+
+
+                <!-- REQUEST IMAGE -->
+
+                {% if req['item_name']|lower in ['calculator','scientific calculator'] %}
+
+                <img class="request-image"
+                    src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=500&q=85"
+                    alt="Calculator">
+
+                {% elif 'book' in req['item_name']|lower %}
+
+                <img class="request-image"
+                    src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=85"
+                    alt="Book">
+
+                {% elif 'laptop' in req['item_name']|lower %}
+
+                <img class="request-image"
+                    src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=85"
+                    alt="Laptop">
+
+                {% else %}
+
+                <img class="request-image"
+                    src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=500&q=85"
+                    alt="Campus Item">
+
+                {% endif %}
+
+
+                <!-- REQUEST INFORMATION -->
+
+                <div class="request-info">
+
+                    <h3>
+                        {{ req['item_name'] }}
+                    </h3>
+
+                    <p>
+                        Requested by:
+                        {{ req['requester_name'] }}
+                    </p>
+
+                    <p class="request-message">
+                        "{{ req['message'] }}"
+                    </p>
+
+                </div>
+
+
+                <!-- REQUEST ACTIONS -->
+
+                <div class="request-actions">
+
+
+                    {% if req['status'] == 'Pending' %}
+
+
+                    <span class="status status-pending">
+                        Pending
+                    </span>
+
+
+                    <form method="POST" action="/request/{{ req['id'] }}/Approved">
+
+                        <button class="approve-btn" type="submit">
+                            ✓ Approve
+                        </button>
+
+                    </form>
+
+
+                    <form method="POST" action="/request/{{ req['id'] }}/Rejected">
+
+                        <button class="reject-btn" type="submit">
+                            ✕ Reject
+                        </button>
+
+                    </form>
+
+
+                    {% elif req['status'] == 'Approved' %}
+
+
+                    <span class="status status-approved">
+                        Approved
+                    </span>
+
+
+                    <button class="view-btn">
+                        View Details
+                    </button>
+
+
+                    {% else %}
+
+
+                    <span class="status status-rejected">
+                        Rejected
+                    </span>
+
+
+                    <button class="view-btn">
+                        View Details
+                    </button>
+
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+            {% else %}
+
+
+            <div class="empty-requests">
+
+                <div style="font-size:55px;">
+                    📩
+                </div>
+
+                <h3 style="margin:15px 0;color:#44327b;">
+                    No Requests Yet
+                </h3>
+
+                <p>
+                    When students request your items,
+                    their requests will appear here.
+                </p>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     FOOTER
+===================================================== -->
+
+    <footer>
+
+        <p>
+            ♻️
+            <strong>
+                Campus ReUse
+            </strong>
+            — Share • Borrow • Reuse
+        </p>
+
+        <p style="margin-top:8px;font-size:13px;">
+            Building a smarter and more sustainable campus.
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+    <script>
+
+
+        let selectedCategory = "";
+
+
+        /* =======================================================
+           VIEW DETAILS
+        ======================================================= */
+
+        function showDetails(button) {
+
+            const card =
+                button.closest(".item-card");
+
+            const details =
+                card.querySelector(".details");
+
+            const requestBox =
+                card.querySelector(".request-box");
+
+
+            details.classList.toggle("show");
+
+
+            if (details.classList.contains("show")) {
+
+                button.innerHTML =
+                    "🔽 Hide Details";
+
+                requestBox.classList.add("show");
+
+            } else {
+
+                button.innerHTML =
+                    "View Details";
+
+                requestBox.classList.remove("show");
+
+            }
+
+        }
+
+
+        /* =======================================================
+           CATEGORY CLICK
+        ======================================================= */
+
+        function selectCategory(category) {
+
+            selectedCategory =
+                category.toLowerCase();
+
+
+            document.getElementById(
+                "searchInput"
+            ).value = category;
+
+
+            filterEverything();
+
+        }
+
+
+        /* =======================================================
+           SEARCH + FILTER
+        ======================================================= */
+
+        function filterEverything() {
+
+
+            const searchText =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            /* CATEGORY CARDS */
+
+            const categoryCards =
+                document.querySelectorAll(
+                    ".category-card"
+                );
+
+
+            categoryCards.forEach(
+                function (card) {
+
+
+                    const category =
+                        card.dataset.category
+                            .toLowerCase();
+
+
+                    if (
+                        searchText === "" ||
+                        category.includes(searchText)
+                    ) {
+
+                        card.style.display =
+                            "block";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+
+            /* ACTUAL ITEMS */
+
+            const itemCards =
+                document.querySelectorAll(
+                    ".item-card"
+                );
+
+
+            itemCards.forEach(
+                function (card) {
+
+
+                    const name =
+                        card.dataset.name;
+
+                    const category =
+                        card.dataset.category;
+
+                    const description =
+                        card.dataset.description;
+
+
+                    const searchMatch =
+                        searchText === "" ||
+                        name.includes(searchText) ||
+                        category.includes(searchText) ||
+                        description.includes(searchText);
+
+
+                    const categoryMatch =
+                        selectedCategory === "" ||
+                        category.includes(selectedCategory);
+
+
+                    if (
+                        searchMatch &&
+                        categoryMatch
+                    ) {
+
+                        card.style.display =
+                            "block";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =======================================================
+           CLEAR SEARCH
+        ======================================================= */
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "input",
+                function () {
+
+
+                    if (
+                        this.value.trim() === ""
+                    ) {
+
+                        selectedCategory = "";
+
+                    }
+
+
+                    filterEverything();
+
+                }
+            );
+
+
+    </script>
+
+
+    <!-- =====================================================
+     REFRESH → LOGIN
+===================================================== -->
+
+    <script>
+
+        if (
+            performance.navigation.type === 1
+        ) {
+
+            window.location.href =
+                "/logout";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

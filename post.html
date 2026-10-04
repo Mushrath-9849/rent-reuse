@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post an Item | Campus ReUse</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            ♻️ Campus ReUse
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/#items">Browse</a>
+            <a href="/post">Post Item</a>
+            <a href="/#about">About</a>
+        </div>
+
+        <button class="login-btn">
+            Login
+        </button>
+
+    </nav>
+
+
+    <!-- Post Item Section -->
+    <section class="post-section">
+
+        <div class="post-container">
+
+            <!-- Heading -->
+            <div class="post-heading">
+
+                <p class="small-title">
+                    ♻️ SHARE WITH YOUR CAMPUS
+                </p>
+
+                <h1>
+                    Post an Item
+                </h1>
+
+                <p>
+                    Have something you don't use anymore?
+                    Let another student borrow it.
+                </p>
+
+            </div>
+
+
+            <!-- Form -->
+            <form class="post-form" method="POST" action="/post">
+
+                <!-- ITEM NAME -->
+
+                <label for="item_name">
+                    Item Name
+                </label>
+
+                <input type="text" id="item_name" name="item_name" placeholder="Example: Engineering Books" required>
+
+
+                <!-- CATEGORY -->
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category" name="category" required>
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Books">
+                        Books
+                    </option>
+
+                    <option value="Calculators">
+                        Calculators
+                    </option>
+
+                    <option value="Drawing Tools">
+                        Drawing Tools
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+                </select>
+
+
+                <!-- DESCRIPTION -->
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea id="description" name="description" rows="5" placeholder="Describe your item..."
+                    required></textarea>
+
+
+                <!-- RENT PRICE -->
+
+                <label for="price">
+                    Rent Price per Day (₹)
+                </label>
+
+                <input type="number" id="price" name="price" placeholder="Example: 20" min="0" required>
+
+
+                <!-- YOUR NAME -->
+
+                <label for="owner_name">
+                    Your Name
+                </label>
+
+                <input type="text" id="owner_name" name="owner_name" placeholder="Enter your name" required>
+
+
+                <!-- PHONE NUMBER -->
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number" pattern="[0-9]{10}"
+                    maxlength="10" required>
+
+
+                <!-- DORM NUMBER -->
+
+                <label for="dorm">
+                    Dorm Number
+                </label>
+
+                <input type="text" id="dorm" name="dorm" placeholder="Example: D-102" required>
+
+
+                <!-- AVAILABILITY -->
+
+                <label for="availability">
+                    Availability
+                </label>
+
+                <select id="availability" name="availability" required>
+                    <option value="Available">
+                        Available
+                    </option>
+
+                    <option value="Currently Rented">
+                        Currently Rented
+                    </option>
+                </select>
+
+
+                <!-- POST BUTTON -->
+
+                <button type="submit" class="post-submit">
+                    📤 Post Item
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <h3>
+            ♻️ Campus ReUse
+        </h3>
+
+        <p>
+            Share • Borrow • Reuse
+        </p>
+
+        <p>
+            Made for students ❤️
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

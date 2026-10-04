@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Requests - Campus ReUse</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f0ff, #eef8ff);
+            color: #292344;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            background: white;
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7045d6;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+
+        .nav-links a {
+            text-decoration: none;
+            color: #292344;
+            font-weight: 600;
+        }
+
+
+        .nav-links a:hover {
+            color: #7045d6;
+        }
+
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        .page {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+
+        .heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+
+        .heading h1 {
+            font-size: 38px;
+            color: #7045d6;
+            margin-bottom: 10px;
+        }
+
+
+        .heading p {
+            color: #6d6780;
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           REQUEST CARD
+        ========================= */
+
+        .request-card {
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(80, 50, 150, 0.12);
+
+            border-left: 6px solid #7045d6;
+        }
+
+
+        .request-card h2 {
+            color: #7045d6;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+
+        .request-info {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+
+        .message {
+            background: #f7f4ff;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            margin: 18px 0;
+        }
+
+
+        .message strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+
+        .message p {
+            color: #555064;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+
+            padding: 8px 16px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            margin-top: 5px;
+
+            background: #fff3cd;
+
+            color: #856404;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+            margin-top: 20px;
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+        }
+
+
+        .buttons form {
+            margin: 0;
+        }
+
+
+        .approve,
+        .reject {
+            border: none;
+
+            padding: 12px 24px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .approve {
+            background: #35b86b;
+            color: white;
+        }
+
+
+        .reject {
+            background: #ef5350;
+            color: white;
+        }
+
+
+        .approve:hover {
+            background: #279957;
+            transform: translateY(-2px);
+        }
+
+
+        .reject:hover {
+            background: #d83b38;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           EMPTY REQUESTS
+        ========================= */
+
+        .empty {
+            background: white;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(80, 50, 150, 0.1);
+        }
+
+
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+
+        .empty h2 {
+            color: #7045d6;
+            margin-bottom: 10px;
+        }
+
+
+        .empty p {
+            color: #6d6780;
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+
+            .heading h1 {
+                font-size: 30px;
+            }
+
+
+            .request-card {
+                padding: 20px;
+            }
+
+
+            .buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+
+            .buttons form {
+                width: 100%;
+            }
+
+
+            .approve,
+            .reject {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+
+        <div class="logo">
+            ♻️ Campus ReUse
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/items">
+                Browse
+            </a>
+
+            <a href="/post">
+                Post Item
+            </a>
+
+            <a href="/requests">
+                Requests
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <div class="page">
+
+
+        <div class="heading">
+
+            <h1>
+                📩 Requests Dashboard
+            </h1>
+
+            <p>
+                View and manage requests from students.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             REQUESTS
+        ========================= -->
+
+        {% if requests %}
+
+
+            {% for request in requests %}
+
+
+                <div class="request-card">
+
+
+                    <h2>
+                        📦 {{ request["item_name"] }}
+                    </h2>
+
+
+                    <div class="request-info">
+
+                        <strong>
+                            👤 Requested by:
+                        </strong>
+
+                        {{ request["requester_name"] }}
+
+                    </div>
+
+
+
+                    <div class="message">
+
+                        <strong>
+                            💬 Message
+                        </strong>
+
+                        <p>
+
+                            {{ request["message"] or "No message provided." }}
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <span class="status">
+
+                        {% if request["status"] == "Approved" %}
+
+                            🟢 Approved
+
+                        {% elif request["status"] == "Rejected" %}
+
+                            🔴 Rejected
+
+                        {% else %}
+
+                            🟡 Pending
+
+                        {% endif %}
+
+                    </span>
+
+
+
+                    <!-- BUTTONS -->
+
+                    {% if request["status"] == "Pending" %}
+
+                        <div class="buttons">
+
+
+                            <!-- APPROVE -->
+
+                            <form
+                                method="POST"
+                                action="/request/{{ request['id'] }}/Approved"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="approve"
+                                >
+                                    ✅ Approve
+                                </button>
+
+                            </form>
+
+
+
+                            <!-- REJECT -->
+
+                            <form
+                                method="POST"
+                                action="/request/{{ request['id'] }}/Rejected"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="reject"
+                                >
+                                    ❌ Reject
+                                </button>
+
+                            </form>
+
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- NO REQUESTS -->
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+                <h2>
+                    No Requests Yet
+                </h2>
+
+                <p>
+                    When students request your items,
+                    their requests will appear here.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+
+</html>

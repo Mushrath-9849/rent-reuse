@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus ReUse - Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(112,69,214,0.85),
+                    rgba(74,48,160,0.9)
+                ),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1400&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-box {
+            width: 90%;
+            max-width: 420px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.25);
+
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #7045d6;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 20px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #7045d6;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #7045d6;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5734b0;
+        }
+
+        .demo {
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #f5f1ff;
+
+            border-radius: 12px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+        .demo strong {
+            color: #7045d6;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-box">
+
+        <div class="logo">
+            ♻️
+        </div>
+
+        <h1>
+            Campus ReUse
+        </h1>
+
+        <p class="subtitle">
+            Share • Borrow • Reuse
+        </p>
+
+
+        <form method="POST" action="/login">
+
+            <label>
+                Student ID
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter Student ID"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+
+            <button type="submit">
+                🔐 Login
+            </button>
+
+        </form>
+
+
+        <div class="demo">
+
+            <strong>Demo Credentials</strong>
+
+            <br>
+
+            Student ID: student01
+
+            <br>
+
+            Password: campus123
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
